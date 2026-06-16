@@ -1,0 +1,153 @@
+{%- assign text_color = section.settings.text_color -%}
+
+<section class="hero{% if text_color == 'white' %} hero--light{% else %} hero--dark{% endif %}">
+  {%- if section.settings.image != blank -%}
+    <div class="hero__image-wrapper">
+      {{
+        section.settings.image
+        | image_url: width: 1920
+        | image_tag: class: 'hero__image', loading: 'eager', fetchpriority: 'high'
+      }}
+    </div>
+  {%- endif -%}
+
+  <div class="hero__content">
+    {%- if section.settings.heading != blank -%}
+      <h1 class="hero__heading">{{ section.settings.heading }}</h1>
+    {%- endif -%}
+
+    {%- if section.settings.subtext != blank -%}
+      <p class="hero__subtext">{{ section.settings.subtext }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.button_label != blank and section.settings.button_url != blank -%}
+      <a class="hero__button button" href="{{ section.settings.button_url }}">
+        {{ section.settings.button_label }}
+      </a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  overflow: hidden;
+}
+
+.hero__image-wrapper {
+  position: absolute;
+  inset: 0;
+}
+
+.hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero__image-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 40px 20px;
+  max-width: 720px;
+}
+
+.hero--light .hero__heading,
+.hero--light .hero__subtext {
+  color: #ffffff;
+}
+
+.hero--dark .hero__heading,
+.hero--dark .hero__subtext {
+  color: var(--color-foreground);
+}
+
+.hero__heading {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 20px;
+}
+
+.hero__subtext {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.7;
+  margin: 0 0 32px;
+  opacity: 0.9;
+}
+
+.hero__button {
+  display: inline-block;
+  padding: 14px 36px;
+  background-color: var(--color-accent-1);
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: opacity 0.2s ease;
+}
+
+.hero__button:hover {
+  opacity: 0.85;
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "背景画像"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "キャッチコピー",
+      "default": "手仕事の温かさを、毎日のテーブルへ"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "サブテキスト",
+      "default": "滋賀・信楽から届く、一点ずつ丁寧に作られた陶器"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "ボタンのテキスト",
+      "default": "商品を見る"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "ボタンのリンク先"
+    },
+    {
+      "type": "select",
+      "id": "text_color",
+      "label": "テキストカラー",
+      "options": [
+        { "value": "white", "label": "白（背景が暗い画像向け）" },
+        { "value": "dark", "label": "黒（背景が明るい画像向け）" }
+      ],
+      "default": "white"
+    }
+  ],
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}
