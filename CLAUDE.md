@@ -1,0 +1,1 @@
+/Users/hisa/Desktop/htdocs/shopify勉強会/level2-lp-with-ai/my-lp-theme/AGENTS.md
