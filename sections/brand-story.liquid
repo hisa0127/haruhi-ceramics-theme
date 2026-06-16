@@ -1,0 +1,125 @@
+<section class="brand-story">
+  <div class="brand-story__inner{% if section.settings.image_position == 'right' %} brand-story__inner--reverse{% endif %}">
+
+    {%- if section.settings.image != blank -%}
+      <div class="brand-story__image-wrapper">
+        {{
+          section.settings.image
+          | image_url: width: 800
+          | image_tag: class: 'brand-story__image', loading: 'lazy'
+        }}
+      </div>
+    {%- endif -%}
+
+    <div class="brand-story__content">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="brand-story__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <p class="brand-story__body">{{ section.settings.body }}</p>
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+{% stylesheet %}
+.brand-story {
+  padding: 80px 20px;
+  background-color: var(--color-background);
+}
+
+.brand-story__inner {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.brand-story__inner--reverse {
+  flex-direction: row-reverse;
+}
+
+.brand-story__image-wrapper {
+  flex: 1;
+  min-width: 0;
+}
+
+.brand-story__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.brand-story__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.brand-story__heading {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 600;
+  color: var(--color-foreground);
+  margin: 0 0 24px;
+  line-height: 1.3;
+}
+
+.brand-story__body {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--color-foreground);
+  opacity: 0.8;
+  margin: 0;
+  white-space: pre-line;
+}
+
+@media (max-width: 749px) {
+  .brand-story {
+    padding: 60px 20px;
+  }
+
+  .brand-story__inner,
+  .brand-story__inner--reverse {
+    flex-direction: column;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Brand Story",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "見出し",
+      "default": "信楽の土から生まれる、ひとつひとつの物語"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "本文",
+      "default": "滋賀県信楽町の小さな工房で、私たちは毎日ろくろに向かっています。\n\n量産品では出せない、手の跡が残る温かみ。使うたびに愛着が増す器を、あなたの日常に届けたい。そんな思いで、一点ずつ丁寧に作り続けています。"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "画像"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "画像の位置",
+      "options": [
+        { "value": "left", "label": "左" },
+        { "value": "right", "label": "右" }
+      ],
+      "default": "left"
+    }
+  ],
+  "presets": [{ "name": "Brand Story" }]
+}
+{% endschema %}
