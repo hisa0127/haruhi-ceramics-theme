@@ -1,5 +1,7 @@
 {%- assign text_color = section.settings.text_color -%}
 
+<script src="{{ 'haruhi-animations.js' | asset_url }}" defer></script>
+
 <section class="hero{% if text_color == 'white' %} hero--light{% else %} hero--dark{% endif %}">
   {%- if section.settings.image != blank -%}
     <div class="hero__image-wrapper">
@@ -11,7 +13,7 @@
     </div>
   {%- endif -%}
 
-  <div class="hero__content">
+  <div class="hero__content animate-fade-up">
     {%- if section.settings.heading != blank -%}
       <h1 class="hero__heading">{{ section.settings.heading }}</h1>
     {%- endif -%}
@@ -102,6 +104,17 @@
 
 .hero__button:hover {
   opacity: 0.85;
+}
+
+.animate-fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.animate-fade-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 {% endstylesheet %}
 

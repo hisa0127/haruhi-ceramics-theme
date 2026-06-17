@@ -1,5 +1,5 @@
 <section class="brand-story">
-  <div class="brand-story__inner{% if section.settings.image_position == 'right' %} brand-story__inner--reverse{% endif %}">
+  <div class="brand-story__inner{% if section.settings.image_position == 'right' %} brand-story__inner--reverse{% endif %} animate-fade-up">
 
     {%- if section.settings.image != blank -%}
       <div class="brand-story__image-wrapper">
@@ -33,7 +33,7 @@
 .brand-story__inner {
   display: flex;
   align-items: center;
-  gap: 60px;
+  gap: 3%;
   max-width: 1100px;
   margin: 0 auto;
 }
